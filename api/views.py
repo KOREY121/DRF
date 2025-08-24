@@ -10,7 +10,8 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView 
 from django.http import Http404
 from rest_framework import mixins,generics
-
+from blogs.models import Blog, Comment
+from blogs.serializers import BlogSerializer, CommentSerializer
 
 @api_view(['GET', 'POST'])
 def studentsView(request):
@@ -54,7 +55,7 @@ def studentDetailView(request, pk):
 
 """"
 class Employees(APIView):
-    def get(self, request):
+    def get(selfg, request):
         employees = Employee.objects.all()
         serializer = EmployeeSerializer(employees, many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
@@ -120,5 +121,28 @@ class EmployeeDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.De
         return self.destroy(request, pk)
 
 
+
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    Lookup_field = 'pk'
+
+
+
+
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    Lookup_field = 'pk'
 
 

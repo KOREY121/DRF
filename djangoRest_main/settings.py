@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'employees',
-    'blog',
+    'blogs',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #django rest
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 2,
+}
